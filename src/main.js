@@ -18,7 +18,7 @@ const app = document.getElementById('app')
 function render() {
   app.innerHTML = `
     <div class="nav-bar">
-      <div class="nav-back" id="navBackBtn">&lt;</div>
+      <div class="nav-back" id="navBackBtn">&#8249;</div>
       <div class="nav-title">一键排版</div>
     </div>
     <div class="tabs">
@@ -89,7 +89,11 @@ function showSuccess() {
   `
   document.body.appendChild(overlay)
   document.getElementById('backToMiniBtn').addEventListener('click', () => {
-    history.back()
+    if (window.wx && wx.miniProgram) {
+      wx.miniProgram.navigateBack()
+    } else {
+      history.back()
+    }
   })
 }
 
@@ -106,7 +110,13 @@ function bindEvents() {
   // 导航栏返回
   const navBack = document.getElementById('navBackBtn')
   if (navBack) {
-    navBack.addEventListener('click', () => history.back())
+    navBack.addEventListener('click', () => {
+      if (window.wx && wx.miniProgram) {
+        wx.miniProgram.navigateBack()
+      } else {
+        history.back()
+      }
+    })
   }
 
   // 输入框 — 只更新局部，不重新渲染整个页面避免失焦
