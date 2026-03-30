@@ -17,6 +17,10 @@ const app = document.getElementById('app')
 // === 渲染 ===
 function render() {
   app.innerHTML = `
+    <div class="nav-bar">
+      <div class="nav-back" id="navBackBtn">&lt;</div>
+      <div class="nav-title">一键排版</div>
+    </div>
     <div class="tabs">
       <div class="tab-item ${currentTab === 'input' ? 'active' : ''}" data-tab="input">原文</div>
       <div class="tab-item ${currentTab === 'preview' ? 'active' : ''}" data-tab="preview">排版预览</div>
@@ -98,6 +102,12 @@ function bindEvents() {
       render()
     })
   })
+
+  // 导航栏返回
+  const navBack = document.getElementById('navBackBtn')
+  if (navBack) {
+    navBack.addEventListener('click', () => history.back())
+  }
 
   // 输入框 — 只更新局部，不重新渲染整个页面避免失焦
   const textarea = document.getElementById('markdownInput')
