@@ -80,10 +80,13 @@ function showSuccess() {
       <div class="success-icon">&#10003;</div>
       <h2 class="success-title">复制成功！</h2>
       <p class="success-desc">现在可以在公众号编辑器中粘贴（Ctrl+V）</p>
-      <p class="return-hint">&#8593; 点击左上角返回按钮回到小程序</p>
+      <button class="back-button" id="backToMiniBtn">返回小程序</button>
     </div>
   `
   document.body.appendChild(overlay)
+  document.getElementById('backToMiniBtn').addEventListener('click', () => {
+    history.back()
+  })
 }
 
 // === 事件绑定 ===
