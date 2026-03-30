@@ -88,13 +88,7 @@ function showSuccess() {
     </div>
   `
   document.body.appendChild(overlay)
-  document.getElementById('backToMiniBtn').addEventListener('click', () => {
-    if (window.wx && wx.miniProgram) {
-      wx.miniProgram.navigateBack()
-    } else {
-      history.back()
-    }
-  })
+  document.getElementById('backToMiniBtn').addEventListener('click', () => goBackToMiniProgram())
 }
 
 // === 事件绑定 ===
@@ -110,13 +104,7 @@ function bindEvents() {
   // 导航栏返回
   const navBack = document.getElementById('navBackBtn')
   if (navBack) {
-    navBack.addEventListener('click', () => {
-      if (window.wx && wx.miniProgram) {
-        wx.miniProgram.navigateBack()
-      } else {
-        history.back()
-      }
-    })
+    navBack.addEventListener('click', () => goBackToMiniProgram())
   }
 
   // 输入框 — 只更新局部，不重新渲染整个页面避免失焦
@@ -176,6 +164,13 @@ function bindEvents() {
 }
 
 // === 业务逻辑 ===
+function goBackToMiniProgram() {
+  if (window.wx && wx.miniProgram) {
+    wx.miniProgram.switchTab({ url: '/pages/index/index' })
+  } else {
+    history.back()
+  }
+}
 function handleConvert() {
   if (!inputText.trim()) return
 
